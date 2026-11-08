@@ -74,6 +74,31 @@
     .demo-flow svg { height: 18px; width: 18px; }
     .demo-footer { margin-top: 19px; padding: 14px 0 0; border-top: 1px solid #2c3f5e; display: flex; gap: 12px; align-items: center; color: #a1c5e0; font-size: .76rem; }
     .demo-footer svg { width: 18px; height: 18px; color: var(--green); }
+    /* Demonstrație interactivă: rulează integral în browser, fără API extern. */
+    .demo-meta { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 17px; }
+    .demo-category { border-radius: 99px; background: rgba(68,138,230,.17); border: 1px solid #325f96; color: #b6d7ff; font-size: .7rem; padding: 3px 11px; font-weight: 700; }
+    .demo-counter { font-size: .76rem; font-weight: 760; font-variant-numeric: tabular-nums; color: #a5c4ef; }
+    .demo-box p { min-height: 2.2em; }
+    .demo-box.out { min-height: 122px; }
+    .demo-box p.demo-placeholder { color: #a7bddb; font-weight: 500; font-size: .96rem; letter-spacing: 0; }
+    .demo-controls { display: flex; gap: 9px; flex-wrap: wrap; margin-top: 17px; }
+    .demo-button { appearance: none; cursor: pointer; border-radius: 10px; min-height: 43px; padding: 11px 14px; font: 700 .83rem/1.25 system-ui, sans-serif; color: #e6f1ff; border: 1px solid #456794; transition: background .18s ease, transform .18s ease, border-color .18s ease; }
+    .demo-button:hover:not(:disabled) { transform: translateY(-1px); }
+    .demo-button:disabled { opacity: .65; cursor: default; }
+    .demo-button-primary { background: #3684ec; border-color: #3684ec; color: #fff; flex: 1 1 150px; }
+    .demo-button-primary:hover:not(:disabled) { background: #4896f8; }
+    .demo-button-secondary { background: #172946; flex: 1 1 120px; }
+    .demo-button-secondary:hover { background: #203a60; }
+    .demo-button:focus-visible, .demo-prev:focus-visible { outline: 3px solid var(--cyan); outline-offset: 3px; }
+    .demo-navigation { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 11px; }
+    .demo-prev { cursor: pointer; border: 0; padding: 6px 2px; background: transparent; color: #a5c8f6; font: 600 .76rem/1.3 system-ui, sans-serif; }
+    .demo-prev:hover { color: #fff; }
+    .demo-progress { display: flex; justify-content: flex-end; flex-wrap: nowrap; gap: 5px; }
+    .demo-progress i { width: 6px; height: 6px; background: #3d537a; border-radius: 50%; transition: background .2s ease, transform .2s ease; }
+    .demo-progress i.active { background: #80c5ff; transform: scale(1.3); }
+    .demo-result-in { animation: demo-enter .35s ease both; }
+    @keyframes demo-enter { from { opacity: .3; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 480px) { .demo-controls { flex-direction: column; } .demo-button-primary, .demo-button-secondary { flex-basis: auto; width: 100%; } .demo-progress { gap: 4px; } .demo-progress i { width: 5px; height: 5px; } }
     .section { padding-block: 62px 66px; }
     .section-heading { text-align: center; max-width: 720px; margin: 0 auto 35px; }
     .section-kicker { color: #88bcff; font-size: .7rem; letter-spacing: .17em; font-weight: 780; text-transform: uppercase; margin-bottom: 10px; }
@@ -182,13 +207,34 @@
         </div>
         <div class="hero-note"><strong>Fără schimbarea addonului existent.</strong> Configurarea și instalarea rămân pe serverul actual.</div>
       </div>
-      <div class="demo-wrap" aria-label="Exemplu ilustrativ de traducere a unei replici">
-        <div class="demo">
-          <div class="demo-head"><span>PREVIZUALIZARE TRADUCERE</span><span class="mini-lights" aria-hidden="true"><i></i><i></i><i></i></span></div>
-          <div class="demo-box"><div class="demo-label">EN · Original</div><p>Can you hear me?</p></div>
-          <div class="demo-flow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M5 14l7 7 7-7"/></svg> GOOGLE GEMINI AI</div>
-          <div class="demo-box out"><div class="demo-label">RO · Traducere</div><p>Mă auzi?</p></div>
-          <div class="demo-footer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg> Exemplu de interfață • traducere orientativă</div>
+      <div class="demo-wrap" aria-label="Demonstrație interactivă de traducere EN–RO">
+        <div class="demo" id="demo-interactiv">
+          <div class="demo-head">
+            <span>DEMO INTERACTIV · EN → RO</span>
+            <span class="mini-lights" aria-hidden="true"><i></i><i></i><i></i></span>
+          </div>
+          <div class="demo-meta">
+            <span class="demo-category" id="demo-category">Întrebare</span>
+            <span class="demo-counter" id="demo-counter">01 / 12</span>
+          </div>
+          <div class="demo-box">
+            <div class="demo-label">EN · Original</div>
+            <p id="demo-en">Can you hear me?</p>
+          </div>
+          <div class="demo-flow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M5 14l7 7 7-7"/></svg> GOOGLE GEMINI AI · EXEMPLU</div>
+          <div class="demo-box out" id="demo-result-box">
+            <div class="demo-label">RO · Traducere</div>
+            <p class="demo-placeholder" id="demo-ro" aria-live="polite" aria-atomic="true">Apasă „Tradu în română” pentru a vedea rezultatul.</p>
+          </div>
+          <div class="demo-controls">
+            <button class="demo-button demo-button-primary" id="demo-translate" type="button">Tradu în română <span aria-hidden="true">↗</span></button>
+            <button class="demo-button demo-button-secondary" id="demo-next" type="button">Alt exemplu <span aria-hidden="true">→</span></button>
+          </div>
+          <div class="demo-navigation">
+            <button class="demo-prev" id="demo-prev" type="button" aria-label="Exemplul anterior">← Anterior</button>
+            <span class="demo-progress" id="demo-progress" aria-hidden="true"><i class="active"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+          </div>
+          <div class="demo-footer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg> 12 exemple pregătite în avans · fără apeluri Gemini sau chei API</div>
         </div>
       </div>
     </section>
@@ -362,5 +408,93 @@
     </div>
   </footer>
 </div>
+  <script>
+  // Demo ilustrativ: traduceri predefinite. Nu se trimite niciun text sau cheie API.
+  (() => {
+    "use strict";
+    const examples = [
+      { category: "Întrebare", en: "Can you hear me?", ro: "Mă auzi?" },
+      { category: "Acțiune", en: "We need to get out of here.", ro: "Trebuie să plecăm de aici." },
+      { category: "Dialog", en: "I'll be right back.", ro: "Mă întorc imediat." },
+      { category: "Suspans", en: "Don't say a word.", ro: "Să nu scoți o vorbă." },
+      { category: "Întrebare", en: "What are you looking for?", ro: "Ce cauți?" },
+      { category: "Dramă", en: "It wasn't supposed to happen.", ro: "Nu trebuia să se întâmple asta." },
+      { category: "Dialog", en: "Keep talking.", ro: "Continuă să vorbești." },
+      { category: "Reacție", en: "I can't believe it.", ro: "Nu-mi vine să cred." },
+      { category: "Dialog", en: "Let's figure this out together.", ro: "Hai să găsim o soluție împreună." },
+      { category: "Întrebare", en: "Are you sure about that?", ro: "Ești sigur de asta?" },
+      { category: "Acțiune", en: "We don't have much time.", ro: "Nu mai avem mult timp." },
+      { category: "Emoție", en: "Promise me you'll be careful.", ro: "Promite-mi că vei avea grijă." }
+    ];
+    const en = document.getElementById("demo-en");
+    const ro = document.getElementById("demo-ro");
+    const category = document.getElementById("demo-category");
+    const counter = document.getElementById("demo-counter");
+    const progress = document.getElementById("demo-progress");
+    const resultBox = document.getElementById("demo-result-box");
+    const translate = document.getElementById("demo-translate");
+    const next = document.getElementById("demo-next");
+    const prev = document.getElementById("demo-prev");
+    if (![en, ro, category, counter, progress, resultBox, translate, next, prev].every(Boolean)) return;
+
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let index = 0;
+    let pending = null;
+    const placeholder = "Apasă „Tradu în română” pentru a vedea rezultatul.";
+
+    function cancelPending() {
+      if (pending !== null) { window.clearTimeout(pending); pending = null; }
+      translate.disabled = false;
+    }
+    function draw(resetTranslation) {
+      const item = examples[index];
+      en.textContent = item.en;
+      category.textContent = item.category;
+      counter.textContent = String(index + 1).padStart(2, "0") + " / " + examples.length;
+      Array.from(progress.children).forEach((dot, i) => dot.classList.toggle("active", i === index));
+      if (resetTranslation) {
+        ro.textContent = placeholder;
+        ro.classList.add("demo-placeholder");
+        ro.classList.remove("demo-result-in");
+        translate.textContent = "Tradu în română ↗";
+      }
+    }
+    function change(delta) {
+      cancelPending();
+      index = (index + delta + examples.length) % examples.length;
+      draw(true);
+    }
+    translate.addEventListener("click", () => {
+      cancelPending();
+      if (!ro.classList.contains("demo-placeholder")) {
+        ro.textContent = placeholder;
+        ro.classList.add("demo-placeholder");
+        ro.classList.remove("demo-result-in");
+        translate.textContent = "Tradu în română ↗";
+        return;
+      }
+      translate.disabled = true;
+      ro.classList.remove("demo-result-in");
+      ro.classList.add("demo-placeholder");
+      ro.textContent = "Se afișează exemplul…";
+      const finish = () => {
+        pending = null;
+        ro.textContent = examples[index].ro;
+        ro.classList.remove("demo-placeholder");
+        if (!reducedMotion.matches) {
+          void ro.offsetWidth;
+          ro.classList.add("demo-result-in");
+        }
+        translate.textContent = "Resetează ↻";
+        translate.disabled = false;
+      };
+      if (reducedMotion.matches) finish();
+      else pending = window.setTimeout(finish, 340);
+    });
+    next.addEventListener("click", () => change(1));
+    prev.addEventListener("click", () => change(-1));
+    draw(true);
+  })();
+  </script>
 </body>
 </html>
