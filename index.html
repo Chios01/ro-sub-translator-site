@@ -309,7 +309,7 @@
         </details>
         <details>
           <summary>De ce sunt necesare 10 chei Gemini?</summary>
-          <p>Interfața addonului cere <strong>10 chei Gemini valide, generate în 10 proiecte Google diferite</strong>: o cheie din fiecare proiect. În Google AI Studio, folosește <strong>„Create API key in new project”</strong> la fiecare generare, nu același proiect pentru toate cheile. Fiecare utilizator își folosește propriile proiecte și suportă eventualele costuri și limite asociate acestora.</p>
+          <p>Cele 10 chei sunt o cerință a <strong>RO Sub Translator</strong>, nu a serviciului Gemini în general. Addonul poate distribui cererile de traducere între proiecte, astfel încât toate calupurile să nu depindă de limitele unui singur proiect. <strong>Google aplică limitele Gemini la nivel de proiect, nu la nivel de cheie API</strong>: dacă generezi 10 chei în același proiect, acestea împart aceleași cote. Cu <strong>10 chei din 10 proiecte diferite</strong>, addonul poate folosi separat capacitatea disponibilă în fiecare proiect și gestiona mai bine traducerile în paralel. Acest lucru <strong>nu garantează</strong> absența erorilor 429/503 sau o anumită viteză. Fiecare utilizator își gestionează propriile proiecte, limite și eventuale costuri.</p>
         </details>
         <details>
           <summary>Această pagină îmi cere cheile API?</summary>
