@@ -13,40 +13,42 @@
   <title>RO Sub Translator — Subtitrări în română pentru Stremio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       color-scheme: dark;
       --bg: #060a14;
-      --bg-elevated: #0b1222;
-      --surface: rgba(15, 23, 42, 0.72);
-      --surface-strong: rgba(19, 30, 54, 0.88);
-      --surface-subtle: rgba(15, 23, 42, 0.45);
-      --border: rgba(148, 184, 235, 0.14);
-      --border-strong: rgba(148, 197, 255, 0.28);
-      --border-highlight: rgba(255, 255, 255, 0.14);
+      --bg-alt: #0a1020;
+      --surface: #0f1629;
+      --surface-glass: rgba(15, 22, 41, 0.78);
+      --surface-subtle: rgba(15, 22, 41, 0.44);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(148, 197, 255, 0.24);
+      --border-top: rgba(255, 255, 255, 0.14);
       --text: #f3f7ff;
       --text-soft: #cbd8ee;
-      --muted: #93a7c6;
+      --muted: #8fa3c4;
       --blue: #3b82f6;
+      --blue-dark: #2563eb;
       --blue-bright: #60a5fa;
       --cyan: #38bdf8;
       --teal: #2dd4bf;
       --green: #34d399;
-      --violet: #a78bfa;
       --amber: #f59e0b;
       --red: #f87171;
-      --radius-lg: 24px;
-      --radius-md: 18px;
-      --radius-sm: 12px;
-      --shadow-card: 0 20px 50px -24px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-      --shadow-btn: 0 10px 28px -8px rgba(59, 130, 246, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+      --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --radius-xl: 24px;
+      --radius-lg: 20px;
+      --radius-md: 16px;
+      --radius-sm: 11px;
+      --shadow-card: 0 22px 50px -28px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      --shadow-btn: 0 10px 26px -8px rgba(59, 130, 246, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.25);
     }
 
     *, *::before, *::after { box-sizing: border-box; }
     html {
       scroll-behavior: smooth;
-      scroll-padding-top: 90px;
+      scroll-padding-top: 88px;
       -webkit-text-size-adjust: 100%;
       overflow-x: clip;
     }
@@ -81,7 +83,7 @@
       border-radius: 8px;
     }
 
-    /* Fundal atmosferic curat */
+    /* Fundal Cinema Dark + accente discrete albastru/cyan */
     .page {
       min-height: 100vh;
       overflow-x: clip;
@@ -92,25 +94,24 @@
       content: "";
       position: absolute;
       inset: 0 0 auto;
-      height: 860px;
+      height: 820px;
       z-index: -2;
       pointer-events: none;
       background:
-        radial-gradient(ellipse 65% 50% at 75% 10%, rgba(56, 189, 248, 0.14), transparent 65%),
-        radial-gradient(ellipse 55% 45% at 18% 8%, rgba(59, 130, 246, 0.18), transparent 65%),
-        radial-gradient(ellipse 40% 35% at 50% 0%, rgba(124, 58, 237, 0.10), transparent 70%);
+        radial-gradient(ellipse 60% 45% at 76% 8%, rgba(56, 189, 248, 0.14), transparent 65%),
+        radial-gradient(ellipse 55% 45% at 18% 6%, rgba(59, 130, 246, 0.17), transparent 65%);
     }
     .page::after {
       content: "";
       position: absolute;
       inset: 0 0 auto;
-      height: 680px;
+      height: 620px;
       z-index: -1;
       pointer-events: none;
-      background-image: radial-gradient(rgba(148, 184, 235, 0.14) 1px, transparent 1px);
+      background-image: radial-gradient(rgba(148, 184, 235, 0.13) 1px, transparent 1px);
       background-size: 28px 28px;
-      -webkit-mask-image: radial-gradient(ellipse 85% 75% at 50% 18%, #000 15%, transparent 78%);
-      mask-image: radial-gradient(ellipse 85% 75% at 50% 18%, #000 15%, transparent 78%);
+      -webkit-mask-image: radial-gradient(ellipse 85% 75% at 50% 18%, #000 10%, transparent 76%);
+      mask-image: radial-gradient(ellipse 85% 75% at 50% 18%, #000 10%, transparent 76%);
     }
 
     .wrap {
@@ -119,15 +120,15 @@
       padding-inline: max(24px, env(safe-area-inset-left)) max(24px, env(safe-area-inset-right));
     }
 
-    /* Header & Navigatie */
+    /* Navbar sticky cu glassmorphism */
     .site-header {
       position: sticky;
       top: 0;
       z-index: 30;
-      background: rgba(6, 10, 20, 0.80);
-      border-bottom: 1px solid rgba(148, 184, 235, 0.10);
-      -webkit-backdrop-filter: blur(18px) saturate(1.3);
-      backdrop-filter: blur(18px) saturate(1.3);
+      background: rgba(6, 10, 20, 0.78);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      -webkit-backdrop-filter: blur(14px) saturate(1.3);
+      backdrop-filter: blur(14px) saturate(1.3);
     }
     .nav {
       min-height: 74px;
@@ -142,7 +143,6 @@
       align-items: center;
       gap: 11px;
       flex-shrink: 0;
-      min-width: 0;
     }
     .brand-icon {
       width: 38px;
@@ -151,9 +151,9 @@
       display: grid;
       place-items: center;
       flex-shrink: 0;
-      background: linear-gradient(135deg, #38bdf8 0%, #2563eb 65%, #1d4ed8 100%);
-      border: 1px solid rgba(255, 255, 255, 0.24);
-      box-shadow: 0 8px 22px -6px rgba(37, 99, 235, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+      background: linear-gradient(135deg, #38bdf8 0%, #2563eb 68%, #1d4ed8 100%);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      box-shadow: 0 8px 22px -6px rgba(37, 99, 235, 0.58), inset 0 1px 0 rgba(255, 255, 255, 0.35);
     }
     .brand-icon svg { width: 21px; height: 21px; }
     .brand-label {
@@ -178,7 +178,7 @@
     }
     .nav-links a:hover {
       color: var(--text);
-      background: rgba(148, 184, 235, 0.08);
+      background: rgba(255, 255, 255, 0.05);
     }
     .nav-actions {
       display: flex;
@@ -193,28 +193,22 @@
       padding: 0;
       border-radius: 11px;
       border: 1px solid var(--border-strong);
-      background: rgba(30, 41, 59, 0.58);
+      background: rgba(30, 41, 59, 0.55);
       color: var(--text);
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-      transition: background-color 0.18s ease, border-color 0.18s ease;
-    }
-    .menu-toggle:hover {
-      background: rgba(38, 53, 78, 0.78);
-      border-color: rgba(147, 197, 253, 0.45);
     }
     .menu-toggle svg { width: 20px; height: 20px; }
     .menu-toggle .icon-close { display: none; }
     .menu-toggle[aria-expanded="true"] .icon-open { display: none; }
     .menu-toggle[aria-expanded="true"] .icon-close { display: block; }
 
-    /* Panou navigatie mobila */
+    /* Meniu mobil */
     .mobile-menu {
       display: none;
-      border-top: 1px solid rgba(148, 184, 235, 0.12);
-      background: rgba(8, 13, 26, 0.96);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(8, 13, 26, 0.97);
     }
     .mobile-menu.is-open { display: block; }
     .mobile-menu-inner {
@@ -228,21 +222,17 @@
       justify-content: space-between;
       min-height: 46px;
       padding: 10px 14px;
-      border-radius: 12px;
+      border-radius: 11px;
       color: var(--text-soft);
-      font-size: 0.96rem;
+      font-size: 0.95rem;
       font-weight: 500;
-      transition: background-color 0.16s ease, color 0.16s ease;
     }
     .mobile-menu-link:hover, .mobile-menu-link:active {
-      background: rgba(59, 130, 246, 0.12);
+      background: rgba(59, 130, 246, 0.14);
       color: #ffffff;
     }
-    .mobile-menu-link span { color: var(--muted); font-size: 0.85rem; }
-    .mobile-menu-cta {
-      margin-top: 8px;
-      width: 100%;
-    }
+    .mobile-menu-link span { color: var(--muted); }
+    .mobile-menu-cta { margin-top: 8px; width: 100%; }
 
     /* Butoane */
     .btn {
@@ -262,25 +252,25 @@
     .btn svg { width: 16px; height: 16px; flex-shrink: 0; }
     .btn-primary {
       color: #ffffff;
-      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-      border: 1px solid rgba(147, 197, 253, 0.45);
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+      border: 1px solid rgba(147, 197, 253, 0.42);
       box-shadow: var(--shadow-btn);
     }
     .btn-primary:hover {
       transform: translateY(-2px);
       background: linear-gradient(135deg, #4f92ff 0%, #2b6ef5 100%);
-      box-shadow: 0 14px 32px -8px rgba(59, 130, 246, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+      box-shadow: 0 14px 32px -8px rgba(59, 130, 246, 0.72), inset 0 1px 0 rgba(255, 255, 255, 0.35);
     }
     .btn-quiet {
       color: var(--text-soft);
-      background: rgba(30, 41, 59, 0.55);
+      background: rgba(30, 41, 59, 0.52);
       border: 1px solid var(--border-strong);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
     }
     .btn-quiet:hover {
       transform: translateY(-2px);
       color: #ffffff;
-      background: rgba(38, 53, 78, 0.72);
+      background: rgba(38, 53, 78, 0.75);
       border-color: rgba(147, 197, 253, 0.45);
     }
     .nav-cta {
@@ -294,19 +284,26 @@
     /* Hero */
     .hero {
       display: grid;
-      grid-template-columns: 1.06fr 0.94fr;
-      gap: clamp(30px, 5vw, 64px);
+      grid-template-columns: 1.04fr 0.96fr;
+      gap: clamp(32px, 5vw, 60px);
       align-items: center;
-      padding-block: clamp(44px, 7vw, 96px) clamp(56px, 7.5vw, 98px);
+      padding-block: clamp(44px, 7vw, 94px) clamp(44px, 6vw, 72px);
     }
     .hero > div { min-width: 0; }
-    .eyebrow, .provider-badge {
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+    .eyebrow {
       display: inline-flex;
       align-items: center;
-      gap: 9px;
-      padding: 6px 13px;
+      gap: 8px;
+      padding: 5px 12px;
       border-radius: 999px;
-      font-size: 0.73rem;
+      font-size: 0.72rem;
       font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
@@ -322,25 +319,47 @@
       background: var(--cyan);
       box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.18);
     }
+    .news-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #d1fae5;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(52, 211, 153, 0.30);
+      transition: background-color 0.18s ease, border-color 0.18s ease;
+    }
+    .news-pill:hover {
+      background: rgba(16, 185, 129, 0.20);
+      border-color: rgba(52, 211, 153, 0.50);
+    }
+    .news-pill strong {
+      font-weight: 700;
+      color: #6ee7b7;
+    }
+
     h1 {
-      font-size: clamp(2.1rem, 6.2vw, 3.95rem);
+      font-size: clamp(2.15rem, 5.4vw, 3.85rem);
       font-weight: 800;
-      letter-spacing: -0.035em;
+      letter-spacing: -0.025em;
       line-height: 1.09;
       margin: 20px 0 18px;
       max-width: 14ch;
     }
     .accent {
-      background: linear-gradient(105deg, #60a5fa 0%, #38bdf8 52%, #5eead4 100%);
+      background: linear-gradient(105deg, #60a5fa 0%, #38bdf8 55%, #5eead4 100%);
       background-clip: text;
       -webkit-background-clip: text;
       color: transparent;
     }
     .lead {
       color: var(--text-soft);
-      font-size: clamp(0.98rem, 1.4vw, 1.12rem);
+      font-size: clamp(0.98rem, 1.4vw, 1.1rem);
       line-height: 1.72;
-      max-width: 52ch;
+      max-width: 58ch;
       margin-bottom: 0;
     }
     .hero-buttons {
@@ -353,268 +372,337 @@
       color: var(--muted);
       font-size: 0.84rem;
       line-height: 1.55;
-      max-width: 52ch;
+      max-width: 58ch;
     }
-    .hero-note strong {
-      color: var(--text-soft);
-      font-weight: 600;
-    }
+    .hero-note strong { color: var(--text-soft); font-weight: 600; }
 
-    /* Panou Centru de informare (Hero) */
-    .demo-wrap { position: relative; min-width: 0; }
-    .demo-wrap::before {
+    /* Mockup Player Video (Inainte -> Dupa) */
+    .preview-wrap { position: relative; min-width: 0; }
+    .preview-wrap::before {
       content: "";
       position: absolute;
-      inset: -12px;
+      inset: -14px;
       border-radius: 36px;
-      background: radial-gradient(circle at 30% 20%, rgba(59, 130, 246, 0.22), transparent 60%),
-                  radial-gradient(circle at 80% 85%, rgba(45, 212, 191, 0.12), transparent 55%);
+      background:
+        radial-gradient(circle at 25% 20%, rgba(59, 130, 246, 0.24), transparent 58%),
+        radial-gradient(circle at 82% 85%, rgba(56, 189, 248, 0.16), transparent 55%);
       filter: blur(28px);
       z-index: -1;
       pointer-events: none;
     }
-    .guide-panel {
-      background: linear-gradient(160deg, rgba(17, 27, 49, 0.88), rgba(10, 16, 32, 0.92));
+    .player-card {
+      background: linear-gradient(165deg, rgba(16, 24, 44, 0.94), rgba(9, 14, 28, 0.96));
       border: 1px solid var(--border-strong);
-      border-top-color: rgba(186, 224, 255, 0.34);
-      border-radius: var(--radius-lg);
-      padding: clamp(16px, 2.4vw, 24px);
+      border-top-color: rgba(186, 224, 255, 0.30);
+      border-radius: var(--radius-xl);
+      padding: clamp(16px, 2.2vw, 22px);
       box-shadow: var(--shadow-card);
-      -webkit-backdrop-filter: blur(18px);
-      backdrop-filter: blur(18px);
     }
-    .demo-head {
+    .player-top {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      gap: 12px;
+      justify-content: space-between;
+      gap: 10px;
       padding-bottom: 13px;
-      border-bottom: 1px solid rgba(148, 184, 235, 0.12);
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      color: var(--muted);
+      border-bottom: 1px solid var(--border);
     }
-    .mini-lights { display: flex; gap: 6px; }
-    .mini-lights i {
-      display: block;
+    .player-dots { display: flex; gap: 6px; flex-shrink: 0; }
+    .player-dots i {
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background: rgba(148, 184, 235, 0.24);
-    }
-    .mini-lights i:first-child { background: var(--cyan); }
-    .guide-intro {
-      display: flex;
-      align-items: center;
-      gap: 13px;
-      padding: 16px 0 15px;
-    }
-    .guide-main-icon {
-      flex: none;
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      display: grid;
-      place-items: center;
-      color: #93c5fd;
-      background: rgba(59, 130, 246, 0.14);
-      border: 1px solid rgba(96, 165, 250, 0.28);
-    }
-    .guide-main-icon svg { width: 22px; height: 22px; }
-    .guide-intro h2 {
-      font-size: 1.15rem;
-      line-height: 1.25;
-      letter-spacing: -0.02em;
-      margin: 0 0 3px;
-    }
-    .guide-intro p {
-      color: var(--muted);
-      font-size: 0.82rem;
-      line-height: 1.45;
-      margin: 0;
-    }
-    .guide-list { display: grid; gap: 10px; }
-    .guide-item {
-      background: rgba(8, 13, 26, 0.66);
-      border: 1px solid rgba(148, 184, 235, 0.13);
-      border-radius: 14px;
-      overflow: hidden;
-      transition: border-color 0.2s ease, background-color 0.2s ease;
-    }
-    .guide-item:hover { border-color: rgba(148, 197, 255, 0.28); }
-    .guide-item[open] {
-      background: rgba(15, 27, 51, 0.85);
-      border-color: rgba(96, 165, 250, 0.40);
-    }
-    .guide-item > summary {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      min-height: 62px;
-      padding: 12px 14px;
-      cursor: pointer;
-      list-style: none;
-      user-select: none;
-    }
-    .guide-item > summary::-webkit-details-marker { display: none; }
-    .guide-item-icon {
-      flex: none;
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      display: grid;
-      place-items: center;
-      color: #93c5fd;
-      background: rgba(59, 130, 246, 0.12);
-      border: 1px solid rgba(96, 165, 250, 0.22);
-    }
-    .guide-item:nth-child(2) .guide-item-icon {
-      color: #67e8f9;
-      background: rgba(56, 189, 248, 0.12);
-      border-color: rgba(56, 189, 248, 0.24);
-    }
-    .guide-item:nth-child(3) .guide-item-icon {
-      color: #6ee7b7;
-      background: rgba(52, 211, 153, 0.12);
-      border-color: rgba(52, 211, 153, 0.24);
-    }
-    .guide-item-icon svg { width: 19px; height: 19px; }
-    .guide-item-label {
-      flex: 1;
-      min-width: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-    .guide-item-label strong {
-      font-size: 0.9rem;
-      font-weight: 650;
-      color: var(--text);
-      line-height: 1.3;
-    }
-    .guide-item-label small {
-      font-size: 0.76rem;
-      color: var(--muted);
-      line-height: 1.32;
-    }
-    .guide-chevron {
-      flex: none;
-      width: 17px;
-      height: 17px;
-      color: var(--muted);
-      transition: transform 0.2s ease, color 0.2s ease;
-    }
-    .guide-item[open] .guide-chevron {
-      transform: rotate(90deg);
-      color: var(--blue-bright);
-    }
-    .guide-answer {
-      border-top: 1px solid rgba(148, 184, 235, 0.12);
-      padding: 14px 15px 15px;
-    }
-    .guide-answer p {
-      margin: 0 0 10px;
-      font-size: 0.85rem;
-      line-height: 1.62;
-      color: var(--text-soft);
-    }
-    .guide-answer p:last-child { margin-bottom: 0; }
-    .guide-tip {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-      background: rgba(59, 130, 246, 0.10);
-      border: 1px solid rgba(96, 165, 250, 0.24);
-      border-radius: 10px;
-      padding: 11px 12px;
-      color: #dbeafe;
-      font-size: 0.82rem;
-      line-height: 1.55;
-    }
-    .guide-tip svg {
-      width: 17px;
-      height: 17px;
-      flex: none;
-      color: var(--blue-bright);
-      margin-top: 2px;
-    }
-    .guide-tip strong { color: #ffffff; }
-    .guide-update {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-    }
-    .guide-update > svg {
-      flex: none;
-      width: 18px;
-      height: 18px;
-      color: var(--green);
-      margin-top: 2px;
-    }
-    .guide-update strong {
+      background: rgba(148, 184, 235, 0.28);
       display: block;
-      color: #ecfdf5;
-      font-size: 0.86rem;
+    }
+    .player-dots i:first-child { background: var(--cyan); }
+    .player-file {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .player-live {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 999px;
+      color: #7dd3fc;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.28);
+      flex-shrink: 0;
+    }
+
+    /* Bloc EN (Inainte) */
+    .sub-raw {
+      margin-top: 15px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: rgba(6, 10, 20, 0.76);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .sub-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--muted);
+    }
+    .sub-lang {
       font-weight: 700;
-      margin-bottom: 4px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #94a3b8;
+    }
+    .sub-raw-line {
+      margin: 0;
+      font-family: var(--mono);
+      font-size: 0.86rem;
+      line-height: 1.55;
+      color: #e2e8f0;
+    }
+    .cue-noise {
+      color: #fca5a5;
+      background: rgba(239, 68, 68, 0.14);
+      padding: 1px 5px;
+      border-radius: 5px;
+      text-decoration: line-through;
+      text-decoration-color: rgba(248, 113, 113, 0.7);
+    }
+
+    /* Separator flux AI */
+    .sub-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-block: 11px;
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--cyan);
+    }
+    .sub-arrow svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+    /* Ecran Player (Dupa — RO curat) */
+    .video-frame {
+      position: relative;
+      border-radius: 15px;
+      padding: 20px 16px 14px;
+      background:
+        radial-gradient(ellipse 90% 70% at 50% 25%, rgba(30, 58, 110, 0.42), rgba(5, 9, 18, 0.96) 75%),
+        #050912;
+      border: 1px solid rgba(56, 189, 248, 0.30);
+      box-shadow: inset 0 1px 0 rgba(186, 230, 253, 0.16);
+    }
+    .video-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 24px;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: #7dd3fc;
+    }
+    .video-subtitle {
+      text-align: center;
+      margin: 0 auto 24px;
+      padding: 8px 16px;
+      width: fit-content;
+      max-width: 100%;
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.68);
+      font-size: clamp(1.08rem, 2.2vw, 1.32rem);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: #ffffff;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
+    }
+    .video-scrubber {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--muted);
+    }
+    .video-bar {
+      flex: 1;
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.14);
+      overflow: hidden;
+    }
+    .video-bar span {
+      display: block;
+      width: 38%;
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--blue), var(--cyan));
+    }
+
+    /* Badge-uri jos in mockup */
+    .player-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 14px;
+      padding-top: 13px;
+      border-top: 1px solid var(--border);
+    }
+    .p-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-soft);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+    }
+    .p-badge.ok {
+      color: #6ee7b7;
+      background: rgba(16, 185, 129, 0.12);
+      border-color: rgba(52, 211, 153, 0.28);
+    }
+    .p-badge.ai {
+      color: #7dd3fc;
+      background: rgba(56, 189, 248, 0.12);
+      border-color: rgba(56, 189, 248, 0.28);
+    }
+
+    /* Banda compacta Noutati (Changelog) */
+    .changelog-wrap {
+      padding-bottom: clamp(20px, 3vw, 32px);
+    }
+    .changelog-bar {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 20px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.09), rgba(15, 22, 41, 0.80));
+      border: 1px solid rgba(52, 211, 153, 0.24);
+      box-shadow: var(--shadow-card);
+    }
+    .changelog-icon {
+      flex: none;
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      color: var(--green);
+      background: rgba(16, 185, 129, 0.14);
+      border: 1px solid rgba(52, 211, 153, 0.28);
+    }
+    .changelog-icon svg { width: 19px; height: 19px; }
+    .changelog-body { min-width: 0; flex: 1; }
+    .changelog-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 3px;
+    }
+    .changelog-tag {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 2px 8px;
+      border-radius: 999px;
+      color: #6ee7b7;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(52, 211, 153, 0.28);
+    }
+    .changelog-body strong {
+      font-size: 0.94rem;
+      color: #ffffff;
+    }
+    .changelog-body p {
+      margin: 0;
+      font-size: 0.87rem;
+      color: var(--text-soft);
+      line-height: 1.58;
+      max-width: 78ch;
     }
 
     /* Sectiuni comune */
-    .section { padding-block: clamp(54px, 7vw, 92px); }
+    .section { padding-block: clamp(64px, 7.5vw, 100px); }
     .section-heading {
       text-align: center;
-      max-width: 660px;
-      margin: 0 auto clamp(28px, 4vw, 46px);
+      max-width: 64ch;
+      margin: 0 auto clamp(32px, 4vw, 48px);
     }
     .section-kicker {
       display: inline-block;
       color: var(--cyan);
-      font-size: 0.74rem;
+      font-family: var(--mono);
+      font-size: 0.72rem;
       font-weight: 700;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       margin-bottom: 10px;
     }
     h2 {
-      font-size: clamp(1.65rem, 4.2vw, 2.55rem);
+      font-size: clamp(1.7rem, 4vw, 2.55rem);
       font-weight: 800;
-      letter-spacing: -0.03em;
+      letter-spacing: -0.025em;
       line-height: 1.18;
       margin-bottom: 12px;
     }
     .section-heading p {
       color: var(--muted);
-      font-size: clamp(0.94rem, 1.6vw, 0.99rem);
-      line-height: 1.66;
-      margin: 0;
+      font-size: clamp(0.95rem, 1.5vw, 1rem);
+      line-height: 1.68;
+      max-width: 60ch;
+      margin: 0 auto;
     }
 
-    /* Functionalitati */
-    .features {
+    /* Bento Grid — Functionalitati */
+    .bento {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(12, minmax(0, 1fr));
       gap: 18px;
     }
     .feature {
+      grid-column: span 6;
       display: flex;
       flex-direction: column;
       min-width: 0;
-      padding: 24px 22px 20px;
-      background: linear-gradient(180deg, rgba(17, 26, 46, 0.82), rgba(11, 18, 34, 0.78));
+      padding: 26px 24px 22px;
+      background: linear-gradient(180deg, rgba(16, 24, 43, 0.90), rgba(11, 17, 32, 0.88));
       border: 1px solid var(--border);
-      border-top-color: var(--border-highlight);
-      border-radius: var(--radius-md);
+      border-top-color: var(--border-top);
+      border-radius: var(--radius-lg);
       box-shadow: var(--shadow-card);
       transition: transform 0.2s ease, border-color 0.2s ease;
     }
-    .feature .symbol {
-      width: 44px;
-      height: 44px;
+    .feature.wide { grid-column: span 7; }
+    .feature.narrow { grid-column: span 5; }
+    .feature-head {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      margin-bottom: 14px;
+    }
+    .symbol {
+      width: 42px;
+      height: 42px;
       border-radius: 12px;
       display: grid;
       place-items: center;
-      margin-bottom: 18px;
+      flex-shrink: 0;
       background: rgba(59, 130, 246, 0.14);
       border: 1px solid rgba(96, 165, 250, 0.28);
       color: #60a5fa;
@@ -630,59 +718,142 @@
       color: #38bdf8;
     }
     .feature:nth-child(4) .symbol {
-      background: rgba(167, 139, 250, 0.12);
-      border-color: rgba(167, 139, 250, 0.28);
-      color: #c4b5fd;
+      background: rgba(45, 212, 191, 0.12);
+      border-color: rgba(45, 212, 191, 0.28);
+      color: #2dd4bf;
     }
-    .symbol svg { width: 21px; height: 21px; }
+    .symbol svg { width: 20px; height: 20px; }
     .feature h3 {
-      font-size: 1.03rem;
+      font-size: 1.08rem;
       font-weight: 700;
       letter-spacing: -0.015em;
-      margin-bottom: 8px;
+      margin: 0;
     }
     .feature p {
-      font-size: 0.9rem;
-      line-height: 1.65;
+      font-size: 0.91rem;
+      line-height: 1.66;
       color: var(--muted);
-      margin-bottom: 18px;
+      margin-bottom: 20px;
+      max-width: 58ch;
     }
-    .feature-meta {
+
+    /* Micro-elemente grafice in Bento Grid */
+    .micro-panel {
       margin-top: auto;
-      padding-top: 13px;
-      border-top: 1px solid rgba(148, 184, 235, 0.10);
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: rgba(6, 10, 20, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+    }
+    .mini-translate {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
+      align-items: center;
+      gap: 8px 10px;
+      font-size: 0.82rem;
+    }
+    .lang-pill {
+      font-family: var(--mono);
+      font-size: 0.69rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 6px;
+      background: rgba(59, 130, 246, 0.16);
+      color: #93c5fd;
+      border: 1px solid rgba(96, 165, 250, 0.26);
+    }
+    .lang-pill.ro {
+      background: rgba(56, 189, 248, 0.16);
+      color: #7dd3fc;
+      border-color: rgba(56, 189, 248, 0.30);
+    }
+    .mini-translate .src { color: var(--muted); }
+    .mini-translate .dst { color: #ffffff; font-weight: 600; }
+
+    .qa-bar-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      margin-bottom: 8px;
+    }
+    .qa-bar-row strong { color: #6ee7b7; }
+    .qa-bar-row span { color: var(--muted); }
+    .qa-track {
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+    }
+    .qa-track i {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #10b981, #38bdf8);
+    }
+
+    .source-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .source-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 10px;
+      border-radius: 9px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      background: rgba(56, 189, 248, 0.10);
+      border: 1px solid rgba(56, 189, 248, 0.24);
+      color: #e0f2fe;
+    }
+    .source-pill.opt {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(255, 255, 255, 0.12);
+      color: var(--text-soft);
+    }
+    .source-pill small {
+      font-family: var(--mono);
+      font-size: 0.67rem;
+      color: var(--cyan);
+    }
+    .source-pill.opt small { color: var(--muted); }
+
+    .cue-chips {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 7px;
     }
     .chip {
       display: inline-flex;
       align-items: center;
-      padding: 4px 8px;
-      border-radius: 6px;
-      font-size: 0.72rem;
+      padding: 4px 9px;
+      border-radius: 7px;
+      font-size: 0.74rem;
       font-weight: 600;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      color: var(--text-soft);
-      background: rgba(148, 184, 235, 0.08);
-      border: 1px solid rgba(148, 184, 235, 0.14);
-    }
-    .chip-strike {
-      text-decoration: line-through;
+      font-family: var(--mono);
       color: #94a3b8;
-      opacity: 0.85;
+      background: rgba(239, 68, 68, 0.08);
+      border: 1px solid rgba(248, 113, 113, 0.22);
+      text-decoration: line-through;
     }
-    .chip-ok {
+    .chip.kept {
+      text-decoration: none;
       color: #6ee7b7;
-      background: rgba(52, 211, 153, 0.10);
-      border-color: rgba(52, 211, 153, 0.24);
+      background: rgba(16, 185, 129, 0.12);
+      border-color: rgba(52, 211, 153, 0.28);
     }
 
-    /* Sectiune Instalare */
+    /* Sectiune Instalare + Stepper conectat */
     .soft-section {
-      background: linear-gradient(180deg, rgba(13, 22, 40, 0.72), rgba(8, 14, 27, 0.78));
-      border-top: 1px solid rgba(148, 184, 235, 0.10);
-      border-bottom: 1px solid rgba(148, 184, 235, 0.10);
+      background: linear-gradient(180deg, rgba(12, 19, 36, 0.72), rgba(7, 12, 24, 0.80));
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     }
     .steps {
       position: relative;
@@ -693,11 +864,11 @@
     .steps::before {
       content: "";
       position: absolute;
-      top: 44px;
+      top: 43px;
       left: 16%;
       right: 16%;
-      height: 1px;
-      background: linear-gradient(90deg, rgba(96, 165, 250, 0.35), rgba(56, 189, 248, 0.45), rgba(52, 211, 153, 0.35));
+      height: 2px;
+      background: linear-gradient(90deg, rgba(59, 130, 246, 0.45), rgba(56, 189, 248, 0.55), rgba(52, 211, 153, 0.45));
       z-index: 0;
       pointer-events: none;
     }
@@ -707,11 +878,11 @@
       min-width: 0;
       display: flex;
       flex-direction: column;
-      padding: 24px 22px;
-      background: linear-gradient(170deg, rgba(17, 27, 48, 0.90), rgba(10, 17, 33, 0.92));
+      padding: 25px 22px;
+      background: linear-gradient(170deg, rgba(16, 25, 45, 0.92), rgba(10, 16, 31, 0.95));
       border: 1px solid var(--border);
-      border-top-color: var(--border-highlight);
-      border-radius: var(--radius-md);
+      border-top-color: var(--border-top);
+      border-radius: var(--radius-lg);
       box-shadow: var(--shadow-card);
       transition: transform 0.2s ease, border-color 0.2s ease;
     }
@@ -722,13 +893,13 @@
       display: grid;
       place-items: center;
       margin-bottom: 16px;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-family: var(--mono);
       font-size: 0.84rem;
       font-weight: 700;
       color: #93c5fd;
-      background: #102446;
-      border: 1px solid rgba(96, 165, 250, 0.38);
-      box-shadow: 0 0 0 6px rgba(10, 17, 33, 0.9);
+      background: #0e2244;
+      border: 1px solid rgba(96, 165, 250, 0.42);
+      box-shadow: 0 0 0 6px #0c1426;
     }
     .step h3 {
       font-size: 1.06rem;
@@ -743,32 +914,40 @@
       margin-bottom: 0;
     }
     .step strong { color: #ffffff; }
-    .key-rule {
+
+    /* Schema vizuala 10 proiecte x 1 cheie */
+    .key-diagram {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 8px;
       margin-top: 16px;
       padding-top: 14px;
-      border-top: 1px solid rgba(148, 184, 235, 0.12);
+      border-top: 1px solid var(--border);
     }
-    .key-pill {
-      padding: 8px 9px;
-      border-radius: 9px;
-      font-size: 0.75rem;
-      font-weight: 600;
+    .key-box {
+      padding: 9px 10px;
+      border-radius: 10px;
+      font-size: 0.74rem;
       line-height: 1.35;
-      text-align: center;
     }
-    .key-pill.ok {
+    .key-box strong {
+      display: block;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      margin-bottom: 2px;
+    }
+    .key-box.ok {
       color: #a7f3d0;
       background: rgba(16, 185, 129, 0.11);
-      border: 1px solid rgba(52, 211, 153, 0.28);
+      border: 1px solid rgba(52, 211, 153, 0.30);
     }
-    .key-pill.bad {
+    .key-box.ok strong { color: #6ee7b7; }
+    .key-box.bad {
       color: #fecaca;
       background: rgba(239, 68, 68, 0.10);
-      border: 1px solid rgba(248, 113, 113, 0.26);
+      border: 1px solid rgba(248, 113, 113, 0.28);
     }
+    .key-box.bad strong { color: #fca5a5; }
 
     .text-link {
       color: #7dd3fc;
@@ -782,23 +961,22 @@
       text-decoration-color: #ffffff;
     }
 
-    /* Avertisment securitate (Amber) */
+    /* Alerta securitate Amber cu iconita scut */
     .note {
       display: flex;
-      gap: 13px;
+      gap: 14px;
       align-items: flex-start;
-      margin-top: 22px;
-      padding: 17px 19px;
+      margin-top: 24px;
+      padding: 18px 20px;
       border-radius: 15px;
-      background: rgba(245, 158, 11, 0.08);
+      background: rgba(245, 158, 11, 0.10);
       border: 1px solid rgba(245, 158, 11, 0.30);
-      color: #fde68a;
       font-size: 0.9rem;
       line-height: 1.62;
     }
     .note svg {
-      width: 21px;
-      height: 21px;
+      width: 22px;
+      height: 22px;
       flex-shrink: 0;
       color: #fbbf24;
       margin-top: 2px;
@@ -811,51 +989,66 @@
       gap: 12px;
       justify-content: center;
       flex-wrap: wrap;
-      margin-top: 26px;
+      margin-top: 28px;
     }
 
-    /* SubDL (Modul optional) */
-    .provider-grid {
+    /* SubDL — Un singur card lat cu doua coloane, greutate vizuala redusa */
+    .subdl-section {
+      padding-block: clamp(44px, 5vw, 68px);
+    }
+    .subdl-card {
       display: grid;
       grid-template-columns: 1.15fr 0.85fr;
-      gap: 20px;
-      align-items: stretch;
-    }
-    .provider-primary {
-      min-width: 0;
-      padding: clamp(22px, 3vw, 34px);
-      border-radius: var(--radius-lg);
+      gap: clamp(24px, 3.5vw, 40px);
+      padding: clamp(24px, 3.4vw, 36px);
+      border-radius: var(--radius-xl);
       background:
-        radial-gradient(ellipse 80% 60% at 0% 0%, rgba(45, 212, 191, 0.10), transparent 60%),
-        linear-gradient(155deg, rgba(17, 29, 52, 0.88), rgba(10, 17, 33, 0.90));
-      border: 1px solid rgba(56, 189, 248, 0.24);
-      border-top-color: rgba(125, 211, 252, 0.35);
+        radial-gradient(ellipse 65% 60% at 0% 0%, rgba(56, 189, 248, 0.08), transparent 60%),
+        rgba(15, 22, 41, 0.74);
+      border: 1px solid var(--border);
+      border-top-color: var(--border-top);
       box-shadow: var(--shadow-card);
     }
-    .provider-primary h3 {
-      font-size: clamp(1.32rem, 2.5vw, 1.85rem);
-      line-height: 1.22;
-      letter-spacing: -0.025em;
-      margin: 16px 0 12px;
+    .subdl-left, .subdl-right { min-width: 0; }
+    .optional-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 4px 11px;
+      border-radius: 999px;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #7dd3fc;
+      background: rgba(56, 189, 248, 0.10);
+      border: 1px solid rgba(56, 189, 248, 0.25);
     }
-    .provider-primary p, .provider-secondary p {
+    .subdl-left h2 {
+      font-size: clamp(1.45rem, 2.8vw, 2rem);
+      margin: 14px 0 10px;
+      text-align: left;
+    }
+    .subdl-left p {
       color: var(--text-soft);
       font-size: 0.92rem;
-      line-height: 1.68;
+      line-height: 1.66;
+      max-width: 56ch;
     }
     .provider-points {
       list-style: none;
-      margin: 18px 0 24px;
+      margin: 16px 0 22px;
       padding: 0;
       display: grid;
-      gap: 11px;
+      gap: 9px;
     }
     .provider-points li {
       display: flex;
-      gap: 10px;
+      gap: 9px;
       align-items: flex-start;
-      color: #e2eeff;
-      font-size: 0.91rem;
+      color: #dbeafe;
+      font-size: 0.89rem;
     }
     .provider-points li::before {
       content: "✓";
@@ -870,29 +1063,24 @@
     }
     .legal-note {
       display: block;
-      margin-top: 14px;
-      font-size: 0.8rem;
+      margin-top: 12px;
+      font-size: 0.78rem;
       color: var(--muted);
     }
-    .provider-secondary {
-      min-width: 0;
+    .subdl-right {
       display: flex;
       flex-direction: column;
-      padding: clamp(22px, 3vw, 32px);
-      border-radius: var(--radius-lg);
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-top-color: var(--border-highlight);
-      box-shadow: var(--shadow-card);
+      padding-left: clamp(0px, 2.5vw, 32px);
+      border-left: 1px solid var(--border);
     }
-    .provider-secondary h3 {
-      font-size: 1.15rem;
-      letter-spacing: -0.02em;
-      margin: 0 0 18px;
+    .subdl-right h3 {
+      font-size: 1.04rem;
+      letter-spacing: -0.015em;
+      margin: 0 0 16px;
     }
     .provider-howto {
       display: grid;
-      gap: 16px;
+      gap: 15px;
     }
     .provider-howto div {
       display: flex;
@@ -902,46 +1090,47 @@
     }
     .small-number {
       flex-shrink: 0;
-      width: 28px;
-      height: 28px;
-      border-radius: 8px;
+      width: 26px;
+      height: 26px;
+      border-radius: 7px;
       display: grid;
       place-items: center;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      font-size: 0.74rem;
+      font-family: var(--mono);
+      font-size: 0.72rem;
       font-weight: 700;
       color: #7dd3fc;
       background: rgba(56, 189, 248, 0.12);
-      border: 1px solid rgba(56, 189, 248, 0.28);
+      border: 1px solid rgba(56, 189, 248, 0.24);
     }
     .provider-howto p {
       margin: 0;
-      font-size: 0.9rem;
-      line-height: 1.6;
-      min-width: 0;
+      font-size: 0.88rem;
+      line-height: 1.58;
+      color: var(--text-soft);
     }
     .provider-howto strong { color: #ffffff; }
     .provider-info {
-      margin-top: 20px;
-      padding: 14px 16px;
-      border-radius: 12px;
-      background: rgba(15, 36, 62, 0.55);
-      border: 1px solid rgba(56, 189, 248, 0.22);
-      color: var(--text-soft);
-      font-size: 0.84rem;
-      line-height: 1.58;
+      margin-top: auto;
+      padding: 12px 14px;
+      border-radius: 11px;
+      background: rgba(6, 10, 20, 0.55);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.81rem;
+      line-height: 1.56;
     }
-    .provider-info strong { color: #ffffff; }
+    .provider-info strong { color: var(--text-soft); }
+    .provider-howto + .provider-info { margin-top: 18px; }
 
-    /* FAQ */
+    /* FAQ + Troubleshooting mutat din Hero */
     .faq {
       max-width: 820px;
       margin: 0 auto;
       display: grid;
-      gap: 12px;
+      gap: 11px;
     }
     .faq details {
-      background: var(--surface);
+      background: var(--surface-glass);
       border: 1px solid var(--border);
       border-radius: 15px;
       padding: 0 22px;
@@ -949,8 +1138,8 @@
     }
     .faq details:hover { border-color: var(--border-strong); }
     .faq details[open] {
-      background: var(--surface-strong);
-      border-color: rgba(96, 165, 250, 0.36);
+      background: rgba(18, 29, 53, 0.90);
+      border-color: rgba(96, 165, 250, 0.38);
     }
     .faq summary {
       cursor: pointer;
@@ -985,54 +1174,66 @@
       transform: translateY(-50%) rotate(45deg);
       color: var(--cyan);
     }
-    .faq details p {
+    .faq-body {
+      padding: 0 18px 20px 0;
       font-size: 0.91rem;
       line-height: 1.7;
       color: var(--text-soft);
-      padding: 0 18px 19px 0;
-      margin: 0;
     }
-    .faq details strong { color: #ffffff; }
+    .faq-body p { margin: 0 0 10px; max-width: 65ch; }
+    .faq-body p:last-child { margin-bottom: 0; }
+    .faq-body strong { color: #ffffff; }
+    .faq-tip {
+      margin-top: 10px;
+      padding: 11px 13px;
+      border-radius: 10px;
+      background: rgba(59, 130, 246, 0.10);
+      border: 1px solid rgba(96, 165, 250, 0.24);
+      color: #dbeafe;
+      font-size: 0.85rem;
+      line-height: 1.58;
+    }
 
-    /* Licenta & Disclaimer */
+    /* Licenta & Disclaimer — fundal discret, contrast redus */
     .legal-section {
-      padding-top: 20px;
+      padding-top: 18px;
       padding-bottom: clamp(56px, 7vw, 88px);
     }
     .legal-grid {
       display: grid;
       grid-template-columns: 0.8fr 1.2fr;
-      gap: 18px;
+      gap: 16px;
     }
     .legal-card {
       min-width: 0;
-      padding: clamp(20px, 2.8vw, 30px);
+      padding: clamp(20px, 2.6vw, 28px);
       border-radius: var(--radius-md);
       background: var(--surface-subtle);
-      border: 1px solid rgba(148, 184, 235, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.06);
     }
     .legal-mark {
       display: inline-block;
-      padding: 4px 10px;
+      padding: 3px 9px;
       border-radius: 999px;
-      font-size: 0.7rem;
+      font-family: var(--mono);
+      font-size: 0.68rem;
       font-weight: 700;
       letter-spacing: 0.08em;
       color: var(--muted);
-      background: rgba(148, 184, 235, 0.08);
-      border: 1px solid rgba(148, 184, 235, 0.16);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.09);
       margin-bottom: 14px;
     }
     .legal-card h3 {
-      font-size: 1.08rem;
-      letter-spacing: -0.015em;
-      margin: 0 0 12px;
+      font-size: 1.04rem;
+      color: var(--text-soft);
+      margin: 0 0 11px;
     }
     .legal-card p {
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       line-height: 1.66;
       color: var(--muted);
-      margin: 0 0 12px;
+      margin: 0 0 11px;
     }
     .legal-card p:last-child { margin-bottom: 0; }
     .legal-card strong { color: var(--text-soft); }
@@ -1040,16 +1241,16 @@
       margin: 0;
       padding-left: 18px;
       display: grid;
-      gap: 10px;
+      gap: 9px;
       color: var(--muted);
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       line-height: 1.62;
     }
 
     /* Footer */
     .site-footer {
-      border-top: 1px solid rgba(148, 184, 235, 0.10);
-      background: rgba(5, 8, 17, 0.85);
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      background: rgba(5, 8, 17, 0.90);
       padding-top: 26px;
       padding-bottom: max(30px, calc(20px + env(safe-area-inset-bottom)));
     }
@@ -1063,7 +1264,6 @@
     .footer-brand {
       color: var(--muted);
       font-size: 0.85rem;
-      line-height: 1.5;
     }
     .footer-brand strong { color: var(--text); }
     .footer-nav {
@@ -1071,15 +1271,11 @@
       gap: 8px 20px;
       flex-wrap: wrap;
       color: var(--muted);
-      font-size: 0.86rem;
+      font-size: 0.85rem;
     }
-    .footer-nav a {
-      padding-block: 4px;
-      transition: color 0.16s ease;
-    }
+    .footer-nav a { padding-block: 4px; transition: color 0.16s ease; }
     .footer-nav a:hover { color: #ffffff; }
 
-    /* Hover doar pe dispozitive cu mouse */
     @media (hover: hover) and (pointer: fine) {
       .feature:hover, .step:hover {
         transform: translateY(-3px);
@@ -1087,27 +1283,57 @@
       }
     }
 
-    /* Tableta & Laptop mic */
+    /* Tableta */
     @media (max-width: 980px) {
       .nav-links { display: none; }
       .menu-toggle { display: inline-flex; }
-      .features { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .feature, .feature.wide, .feature.narrow { grid-column: auto; }
     }
 
     @media (max-width: 860px) {
-      .hero {
-        grid-template-columns: 1fr;
-        gap: 34px;
-      }
+      .hero { grid-template-columns: 1fr; gap: 32px; }
       h1 { max-width: none; }
-      .steps { grid-template-columns: 1fr; gap: 16px; }
-      .steps::before { display: none; }
-      .provider-grid, .legal-grid { grid-template-columns: 1fr; gap: 16px; }
+
+      /* Stepper conectat vertical pe tableta & telefon */
+      .steps {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding-left: 50px;
+      }
+      .steps::before {
+        top: 26px;
+        bottom: 26px;
+        left: 18px;
+        right: auto;
+        width: 2px;
+        height: auto;
+        background: linear-gradient(180deg, rgba(59, 130, 246, 0.55), rgba(56, 189, 248, 0.55), rgba(52, 211, 153, 0.50));
+      }
+      .step { padding: 20px 18px; }
+      .step .number {
+        position: absolute;
+        left: -50px;
+        top: 18px;
+        width: 36px;
+        height: 36px;
+        margin-bottom: 0;
+        font-size: 0.8rem;
+      }
+
+      .subdl-card { grid-template-columns: 1fr; gap: 24px; }
+      .subdl-right {
+        padding-left: 0;
+        padding-top: 22px;
+        border-left: none;
+        border-top: 1px solid var(--border);
+      }
+      .legal-grid { grid-template-columns: 1fr; }
     }
 
     /* Telefon */
     @media (max-width: 600px) {
-      html { scroll-padding-top: 80px; }
+      html { scroll-padding-top: 78px; }
       .wrap {
         padding-inline: max(16px, env(safe-area-inset-left)) max(16px, env(safe-area-inset-right));
       }
@@ -1115,50 +1341,52 @@
       .brand-icon { width: 34px; height: 34px; border-radius: 10px; }
       .brand-icon svg { width: 19px; height: 19px; }
       .brand-label { font-size: 0.98rem; }
-      .nav-cta {
-        min-height: 38px;
-        padding: 7px 12px;
-        font-size: 0.8rem;
-      }
+      .nav-cta { min-height: 38px; padding: 7px 12px; font-size: 0.8rem; }
       .menu-toggle { width: 38px; height: 38px; }
 
-      .hero { padding-block: 32px 48px; gap: 30px; }
-      .eyebrow, .provider-badge { font-size: 0.7rem; padding: 5px 11px; }
-      .hero-buttons { margin: 24px 0 16px; gap: 10px; }
+      .hero { padding-block: 30px 36px; gap: 28px; }
+      .hero-buttons { margin: 22px 0 16px; gap: 10px; }
       .hero-buttons .btn,
       .provider-actions .btn,
       .install-actions .btn { width: 100%; }
 
-      .guide-panel { border-radius: 20px; padding: 16px; }
-      .guide-item > summary { padding: 11px 12px; gap: 10px; }
-      .guide-answer { padding: 13px; }
-      .guide-tip { padding: 10px 11px; }
+      .player-card { border-radius: 20px; padding: 15px; }
+      .sub-raw { padding: 12px 13px; }
+      .sub-raw-line { font-size: 0.8rem; }
+      .video-frame { padding: 16px 12px 12px; }
+      .video-top-row { margin-bottom: 18px; }
+      .video-subtitle { margin-bottom: 18px; font-size: 1.05rem; }
 
-      .section { padding-block: 46px; }
-      .section-heading { text-align: left; margin-bottom: 24px; }
-      .features { grid-template-columns: 1fr; gap: 14px; }
-      .feature { padding: 20px 18px; border-radius: 16px; }
-      .step { padding: 20px 18px; border-radius: 16px; }
-      .note { padding: 15px 14px; gap: 11px; font-size: 0.87rem; }
-
-      .provider-primary, .provider-secondary {
-        padding: 20px 18px;
-        border-radius: 20px;
+      .changelog-bar {
+        align-items: flex-start;
+        padding: 14px 15px;
+        gap: 12px;
       }
 
+      .section { padding-block: 48px; }
+      .section-heading { text-align: left; margin-bottom: 24px; }
+      .section-heading p { margin-inline: 0; }
+      .bento { grid-template-columns: 1fr; gap: 14px; }
+      .feature { padding: 20px 18px; border-radius: 18px; }
+
+      .steps { padding-left: 44px; }
+      .steps::before { left: 16px; }
+      .step .number { left: -44px; width: 32px; height: 32px; font-size: 0.74rem; }
+      .note { padding: 15px 14px; gap: 11px; font-size: 0.87rem; }
+
+      .subdl-card { padding: 20px 18px; border-radius: 20px; }
       .faq details { padding-inline: 16px; border-radius: 14px; }
       .faq summary { font-size: 0.93rem; padding: 15px 32px 15px 0; }
-      .faq details p { padding: 0 0 17px 0; font-size: 0.89rem; }
+      .faq-body { padding: 0 0 17px 0; font-size: 0.89rem; }
 
       .legal-card { padding: 19px 17px; border-radius: 16px; }
-      .footer-content { flex-direction: column; align-items: flex-start; gap: 14px; }
+      .footer-content { flex-direction: column; align-items: flex-start; gap: 12px; }
       .footer-nav { gap: 6px 16px; }
     }
 
-    /* Telefoane foarte inguste (<= 370px) */
-    @media (max-width: 370px) {
+    @media (max-width: 390px) {
       .nav-cta { display: none; }
-      .key-rule { grid-template-columns: 1fr; }
+      .key-diagram { grid-template-columns: 1fr; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1169,10 +1397,10 @@
       .feature, .step, .btn { transform: none !important; }
     }
     @media (prefers-reduced-transparency: reduce) {
-      .site-header, .guide-panel, .feature, .step, .provider-primary, .provider-secondary, .faq details, .legal-card {
+      .site-header, .player-card, .feature, .step, .subdl-card, .faq details, .legal-card {
         -webkit-backdrop-filter: none;
         backdrop-filter: none;
-        background: #0d1629;
+        background: #0f1629;
       }
     }
   </style>
@@ -1216,7 +1444,10 @@
   <main id="acasa">
     <section class="wrap hero" aria-labelledby="titlu">
       <div>
-        <div class="eyebrow"><span class="dot"></span> Addon pentru Stremio</div>
+        <div class="hero-badges">
+          <div class="eyebrow"><span class="dot"></span> Addon pentru Stremio</div>
+          <a class="news-pill" href="#noutati"><strong>Noutate</strong> · Filtrare mai bună a sunetelor →</a>
+        </div>
         <h1 id="titlu">Subtitrări în română, <span class="accent">cu ajutorul AI.</span></h1>
         <p class="lead">RO Sub Translator traduce subtitrări din engleză în română folosind Google Gemini, cu verificări de calitate, recuperarea replicilor lipsă și filtrarea vocalizărilor inutile.</p>
         <div class="hero-buttons">
@@ -1226,80 +1457,64 @@
         <div class="hero-note"><strong>Fără schimbarea addonului existent.</strong> Configurarea și instalarea rămân pe serverul actual.</div>
       </div>
 
-      <div class="demo-wrap">
-        <section class="guide-panel" aria-labelledby="guide-title">
-          <div class="demo-head">
-            <span>CENTRU DE INFORMARE</span>
-            <span class="mini-lights" aria-hidden="true"><i></i><i></i><i></i></span>
+      <div class="preview-wrap">
+        <div class="player-card" role="region" aria-label="Exemplu vizual: subtitrare din engleză transformată în română curată">
+          <div class="player-top">
+            <span class="player-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="player-file">Stremio · Preview subtitrare</span>
+            <span class="player-live">EN → RO</span>
           </div>
-          <div class="guide-intro">
-            <span class="guide-main-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><path d="m5.65 5.65 4.23 4.23m4.24 4.24 4.23 4.23m0-12.7-4.23 4.23m-4.24 4.24-4.23 4.23"/></svg>
-            </span>
-            <div>
-              <h2 id="guide-title">Ajutor rapid</h2>
-              <p>Răspunsuri utile despre subtitrări și calitatea traducerilor.</p>
+
+          <div class="sub-raw">
+            <div class="sub-head">
+              <span class="sub-lang">EN · Sursă brută</span>
+              <span>00:14:22,100 → 00:14:24,800</span>
+            </div>
+            <p class="sub-raw-line"><span class="cue-noise">[laughter]</span> <span class="cue-noise">- JOHN:</span> Wait, don't go! <span class="cue-noise">[sighs]</span></p>
+          </div>
+
+          <div class="sub-arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14m0 0-5-5m5 5 5-5"/></svg>
+            <span>Traducere AI + curățare QA</span>
+          </div>
+
+          <div class="video-frame">
+            <div class="video-top-row">
+              <span>RO · OUTPUT CURAT</span>
+              <span>1080p · SYNC OK</span>
+            </div>
+            <p class="video-subtitle">Stai, nu pleca!</p>
+            <div class="video-scrubber" aria-hidden="true">
+              <span>14:22</span>
+              <div class="video-bar"><span></span></div>
+              <span>42:10</span>
             </div>
           </div>
-          <div class="guide-list">
-            <details class="guide-item" name="centru-informare" open>
-              <summary>
-                <span class="guide-item-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
-                </span>
-                <span class="guide-item-label"><strong>Nu găsesc subtitrarea</strong><small>Disponibilitatea pentru filme și episoade</small></span>
-                <svg class="guide-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
-              </summary>
-              <div class="guide-answer">
-                <p>RO Sub Translator are nevoie de o subtitrare în limba engleză pentru a putea realiza traducerea.</p>
-                <div class="guide-tip">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16v-4m0-4h.01"/><circle cx="12" cy="12" r="10"/></svg>
-                  <span>Dacă nu apare nicio subtitrare, încearcă <strong>o altă variantă video a aceluiași film sau episod</strong> în Stremio. Disponibilitatea poate diferi de la un release la altul.</span>
-                </div>
-              </div>
-            </details>
 
-            <details class="guide-item" name="centru-informare">
-              <summary>
-                <span class="guide-item-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 0m-3-3v3m-3 5c5-2 7-5 8-8M5 13l5 5m5-8 4 10m-6-4h7"/></svg>
-                </span>
-                <span class="guide-item-label"><strong>Calitatea traducerii</strong><small>Ce trebuie să știi despre traducerea AI</small></span>
-                <svg class="guide-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
-              </summary>
-              <div class="guide-answer">
-                <p>RO Sub Translator folosește inteligența artificială și verificări automate pentru a îmbunătăți traducerile.</p>
-                <p>Totuși, pot apărea greșeli de exprimare sau interpretare a contextului. Unele erori nu pot fi întotdeauna identificate ori corectate automat.</p>
-                <div class="guide-tip">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16v-4m0-4h.01"/><circle cx="12" cy="12" r="10"/></svg>
-                  <span>O nouă traducere poate avea un rezultat diferit, fără să garanteze eliminarea tuturor greșelilor.</span>
-                </div>
-              </div>
-            </details>
-
-            <details class="guide-item" name="centru-informare">
-              <summary>
-                <span class="guide-item-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 1.9 5.9L20 11l-6.1 2.1L12 19l-1.9-5.9L4 11l6.1-2.1L12 3Z"/><path d="m19 17 .7 2.3L22 20l-2.3.7L19 23l-.7-2.3L16 20l2.3-.7L19 17Z"/></svg>
-                </span>
-                <span class="guide-item-label"><strong>Noutăți și îmbunătățiri</strong><small>Schimbări importante pentru utilizatori</small></span>
-                <svg class="guide-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
-              </summary>
-              <div class="guide-answer">
-                <div class="guide-update">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 2.6 2.6L16.5 9"/></svg>
-                  <div>
-                    <strong>Filtrare mai bună a sunetelor și etichetelor</strong>
-                    <p>Detectarea mai multor tipuri de greșeli.</p>
-                    <p>Addonul filtrează mai bine indicațiile precum [râsete], [oftat] și [muzică], astfel încât dialogul să fie mai ușor de urmărit.</p>
-                  </div>
-                </div>
-              </div>
-            </details>
+          <div class="player-badges" aria-label="Caracteristici aplicate">
+            <span class="p-badge ai">✦ Gemini AI</span>
+            <span class="p-badge ok">✓ QA OK</span>
+            <span class="p-badge">Sunete filtrate</span>
+            <span class="p-badge">Timpi păstrați</span>
           </div>
-        </section>
+        </div>
       </div>
     </section>
+
+    <div class="wrap changelog-wrap" id="noutati">
+      <aside class="changelog-bar" aria-label="Noutăți și îmbunătățiri">
+        <span class="changelog-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 1.9 5.9L20 11l-6.1 2.1L12 19l-1.9-5.9L4 11l6.1-2.1L12 3Z"/></svg>
+        </span>
+        <div class="changelog-body">
+          <div class="changelog-top">
+            <span class="changelog-tag">Noutăți</span>
+            <strong>Filtrare mai bună a sunetelor și etichetelor</strong>
+          </div>
+          <p>Detectarea mai multor tipuri de greșeli. Addonul filtrează mai bine indicațiile precum [râsete], [oftat] și [muzică], astfel încât dialogul să fie mai ușor de urmărit.</p>
+        </div>
+      </aside>
+    </div>
 
     <section class="wrap section" id="functionalitati" aria-labelledby="features-title">
       <div class="section-heading">
@@ -1307,42 +1522,65 @@
         <h2 id="features-title">Creat pentru subtitrări mai clare</h2>
         <p>Traduce replicile și încearcă să remedieze automat problemele detectate, păstrând timpii subtitrărilor.</p>
       </div>
-      <div class="features">
-        <article class="feature">
-          <div class="symbol" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 0m-3-3v3m-3 5c5-2 7-5 8-8M5 13l5 5m5-8 4 10m-6-4h7"/></svg></div>
-          <h3>Traducere cu Gemini</h3>
+      <div class="bento">
+        <article class="feature wide">
+          <div class="feature-head">
+            <div class="symbol" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 0m-3-3v3m-3 5c5-2 7-5 8-8M5 13l5 5m5-8 4 10m-6-4h7"/></svg></div>
+            <h3>Traducere cu Gemini</h3>
+          </div>
           <p>Transformă subtitrările EN în RO, cu atenție la context și exprimarea naturală.</p>
-          <div class="feature-meta" aria-hidden="true">
-            <span class="chip">EN → RO</span>
-            <span class="chip">Gemini AI</span>
+          <div class="micro-panel" aria-hidden="true">
+            <div class="mini-translate">
+              <span class="lang-pill">EN</span>
+              <span class="src">„You've got to be kidding me.”</span>
+              <span class="lang-pill ro">RO</span>
+              <span class="dst">„Nu pot să cred.”</span>
+            </div>
           </div>
         </article>
-        <article class="feature">
-          <div class="symbol" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 8 4v5c0 5-4 8-8 9-4-1-8-4-8-9V7l8-4Z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg></div>
-          <h3>Verificare și recuperare</h3>
+
+        <article class="feature narrow">
+          <div class="feature-head">
+            <div class="symbol" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 8 4v5c0 5-4 8-8 9-4-1-8-4-8-9V7l8-4Z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg></div>
+            <h3>Verificare și recuperare</h3>
+          </div>
           <p>Verificări QA, corecții punctuale și recuperarea traducerilor lipsă când este necesar.</p>
-          <div class="feature-meta" aria-hidden="true">
-            <span class="chip chip-ok">QA automat</span>
-            <span class="chip">Sync păstrat</span>
+          <div class="micro-panel" aria-hidden="true">
+            <div class="qa-bar-row">
+              <strong>✓ QA verificat</strong>
+              <span>Replici + sync păstrate</span>
+            </div>
+            <div class="qa-track"><i></i></div>
           </div>
         </article>
-        <article class="feature">
-          <div class="symbol" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><path d="M13 17h8M17 13v8"/></svg></div>
-          <h3>Două surse de subtitrări</h3>
+
+        <article class="feature narrow">
+          <div class="feature-head">
+            <div class="symbol" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><path d="M13 17h8M17 13v8"/></svg></div>
+            <h3>Două surse de subtitrări</h3>
+          </div>
           <p>OpenSubtitles este activ permanent; SubDL poate fi activat cu un token opțional.</p>
-          <div class="feature-meta" aria-hidden="true">
-            <span class="chip">OpenSubtitles</span>
-            <span class="chip">+ SubDL</span>
+          <div class="micro-panel" aria-hidden="true">
+            <div class="source-pills">
+              <span class="source-pill">OpenSubtitles <small>ACTIV</small></span>
+              <span class="source-pill opt">+ SubDL <small>OPȚIONAL</small></span>
+            </div>
           </div>
         </article>
-        <article class="feature">
-          <div class="symbol" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h2l2-4 4 8 3-6 2 2h3"/><path d="M4 4 20 20"/></svg></div>
-          <h3>Mai puține sunete inutile</h3>
+
+        <article class="feature wide">
+          <div class="feature-head">
+            <div class="symbol" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h2l2-4 4 8 3-6 2 2h3"/><path d="M4 4 20 20"/></svg></div>
+            <h3>Mai puține sunete inutile</h3>
+          </div>
           <p>Filtrează vocalizări și indicații sonore, încercând să păstreze dialogul relevant.</p>
-          <div class="feature-meta" aria-hidden="true">
-            <span class="chip chip-strike">[râsete]</span>
-            <span class="chip chip-strike">[oftat]</span>
-            <span class="chip chip-strike">[muzică]</span>
+          <div class="micro-panel" aria-hidden="true">
+            <div class="cue-chips">
+              <span class="chip">[râsete]</span>
+              <span class="chip">[oftat]</span>
+              <span class="chip">[muzică]</span>
+              <span class="chip kept">✓ Dialog păstrat</span>
+            </div>
           </div>
         </article>
       </div>
@@ -1360,9 +1598,15 @@
             <div class="number">01</div>
             <h3>Pregătește cele 10 chei Gemini</h3>
             <p>Generează <strong>10 chei API Gemini din 10 proiecte Google diferite</strong> în <a class="text-link" href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer">Google AI Studio</a>. Pentru fiecare cheie, alege <strong>„Create API key in new project”</strong>; nu genera toate cele 10 chei în același proiect. Verifică limitele și eventualele costuri pentru proiectele tale Google.</p>
-            <div class="key-rule" aria-hidden="true">
-              <div class="key-pill ok">✓ 10 proiecte × 1 cheie</div>
-              <div class="key-pill bad">✕ 1 proiect × 10 chei</div>
+            <div class="key-diagram" aria-hidden="true">
+              <div class="key-box ok">
+                <strong>✓ CORECT</strong>
+                10 proiecte × 1 cheie
+              </div>
+              <div class="key-box bad">
+                <strong>✕ GREȘIT</strong>
+                1 proiect × 10 chei
+              </div>
             </div>
           </article>
           <article class="step">
@@ -1376,10 +1620,12 @@
             <p>Apasă <strong>„Verifică tokenurile Gemini”</strong>. După validare apare <strong>„Install on Stremio”</strong>; folosește-l pentru instalare.</p>
           </article>
         </div>
+
         <div class="note" role="note">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 2 20h20L12 2Z"/><path d="M12 9v4m0 4h.01"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 8 4v5c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V7l8-4Z"/><path d="M12 9v4m0 4h.01"/></svg>
           <p><strong>Protejează-ți cheile:</strong> linkul de configurare/instalare generat de addon conține date codificate Base64, <strong>nu criptate</strong>. Nu distribui public acel link. Pagina de prezentare de față nu solicită și nu colectează chei API.</p>
         </div>
+
         <div class="install-actions">
           <a class="btn btn-primary" href="https://ro-sub-translator-addon.onrender.com/" target="_blank" rel="noopener noreferrer">Deschide pagina de instalare <span aria-hidden="true">↗</span></a>
           <a class="btn btn-quiet" href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer">Google AI Studio <span aria-hidden="true">↗</span></a>
@@ -1387,17 +1633,12 @@
       </div>
     </section>
 
-    <section class="wrap section" id="subdl" aria-labelledby="subdl-title">
-      <div class="section-heading">
-        <div class="section-kicker">Sursă suplimentară · opțional</div>
-        <h2 id="subdl-title">Mai multe subtitrări, cu <span class="accent">SubDL</span></h2>
-        <p>RO Sub Translator poate căuta subtitrări și în SubDL. Integrarea este opțională: addonul funcționează și fără un cont SubDL.</p>
-      </div>
-      <div class="provider-grid">
-        <article class="provider-primary">
-          <span class="provider-badge"><span class="dot"></span> Integrare opțională</span>
-          <h3>Activează SubDL când ai nevoie</h3>
-          <p>SubDL poate oferi surse suplimentare de subtitrări pentru filme și seriale. Cheia SubDL este <strong>separată de cele 10 chei Gemini</strong> și se obține din contul tău SubDL.</p>
+    <section class="wrap subdl-section" id="subdl" aria-labelledby="subdl-title">
+      <div class="subdl-card">
+        <div class="subdl-left">
+          <span class="optional-tag"><span class="dot"></span> Opțional · Sursă suplimentară</span>
+          <h2 id="subdl-title">Mai multe subtitrări, cu <span class="accent">SubDL</span></h2>
+          <p>RO Sub Translator poate căuta subtitrări și în SubDL. Integrarea este opțională: addonul funcționează și fără un cont SubDL. Cheia SubDL este <strong>separată de cele 10 chei Gemini</strong> și se obține din contul tău SubDL.</p>
           <ul class="provider-points">
             <li>OpenSubtitles rămâne disponibil și fără SubDL.</li>
             <li>Folosești propria cheie API SubDL, nu una comună.</li>
@@ -1408,8 +1649,9 @@
             <a class="btn btn-quiet" href="https://subdl.com/" target="_blank" rel="noopener noreferrer">Site-ul oficial SubDL <span aria-hidden="true">↗</span></a>
           </div>
           <span class="legal-note">Linkul pentru cheia API poate solicita autentificarea în contul SubDL.</span>
-        </article>
-        <aside class="provider-secondary" aria-labelledby="subdl-steps">
+        </div>
+
+        <aside class="subdl-right" aria-labelledby="subdl-steps">
           <h3 id="subdl-steps">Cum activezi această sursă</h3>
           <div class="provider-howto">
             <div><span class="small-number">01</span><p><strong>Deschide SubDL</strong> și conectează-te sau creează un cont.</p></div>
@@ -1428,24 +1670,48 @@
       </div>
       <div class="faq">
         <details>
-          <summary>Se schimbă adresa addonului dacă folosesc această pagină?</summary>
-          <p>Nu. Acest website prezintă proiectul și trimite către pagina de configurare existentă, de pe Render. Instalările deja făcute în Stremio nu depind de această pagină.</p>
+          <summary>Nu găsesc subtitrarea pentru un film sau episod — ce pot face?</summary>
+          <div class="faq-body">
+            <p>RO Sub Translator are nevoie de o subtitrare în limba engleză pentru a putea realiza traducerea.</p>
+            <div class="faq-tip">Dacă nu apare nicio subtitrare, încearcă <strong>o altă variantă video a aceluiași film sau episod</strong> în Stremio. Disponibilitatea poate diferi de la un release la altul.</div>
+          </div>
         </details>
         <details>
-          <summary>Este obligatoriu să folosesc SubDL?</summary>
-          <p>Nu. OpenSubtitles funcționează fără SubDL. Pentru sursa suplimentară SubDL poți adăuga cheia API personală în pagina de configurare. <a class="text-link" href="#subdl">Vezi pașii pentru SubDL.</a></p>
+          <summary>Ce trebuie să știu despre calitatea traducerii AI?</summary>
+          <div class="faq-body">
+            <p>RO Sub Translator folosește inteligența artificială și verificări automate pentru a îmbunătăți traducerile. Totuși, pot apărea greșeli de exprimare sau interpretare a contextului. Unele erori nu pot fi întotdeauna identificate ori corectate automat.</p>
+            <div class="faq-tip">O nouă traducere poate avea un rezultat diferit, fără să garanteze eliminarea tuturor greșelilor.</div>
+          </div>
         </details>
         <details>
           <summary>De ce sunt necesare 10 chei Gemini?</summary>
-          <p>Cele 10 chei sunt o cerință a <strong>RO Sub Translator</strong>, nu a serviciului Gemini în general. Addonul poate distribui cererile de traducere între proiecte, astfel încât toate calupurile să nu depindă de limitele unui singur proiect. <strong>Google aplică limitele Gemini la nivel de proiect, nu la nivel de cheie API</strong>: dacă generezi 10 chei în același proiect, acestea împart aceleași cote. Cu <strong>10 chei din 10 proiecte diferite</strong>, addonul poate folosi separat capacitatea disponibilă în fiecare proiect și gestiona mai bine traducerile în paralel. Acest lucru <strong>nu garantează</strong> absența erorilor 429/503 sau o anumită viteză. Fiecare utilizator își gestionează propriile proiecte, limite și eventuale costuri.</p>
+          <div class="faq-body">
+            <p>Cele 10 chei sunt o cerință a <strong>RO Sub Translator</strong>, nu a serviciului Gemini în general. Addonul poate distribui cererile de traducere între proiecte, astfel încât toate calupurile să nu depindă de limitele unui singur proiect. <strong>Google aplică limitele Gemini la nivel de proiect, nu la nivel de cheie API</strong>: dacă generezi 10 chei în același proiect, acestea împart aceleași cote. Cu <strong>10 chei din 10 proiecte diferite</strong>, addonul poate folosi separat capacitatea disponibilă în fiecare proiect și gestiona mai bine traducerile în paralel. Acest lucru <strong>nu garantează</strong> absența erorilor 429/503 sau o anumită viteză. Fiecare utilizator își gestionează propriile proiecte, limite și eventuale costuri.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Se schimbă adresa addonului dacă folosesc această pagină?</summary>
+          <div class="faq-body">
+            <p>Nu. Acest website prezintă proiectul și trimite către pagina de configurare existentă, de pe Render. Instalările deja făcute în Stremio nu depind de această pagină.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Este obligatoriu să folosesc SubDL?</summary>
+          <div class="faq-body">
+            <p>Nu. OpenSubtitles funcționează fără SubDL. Pentru sursa suplimentară SubDL poți adăuga cheia API personală în pagina de configurare. <a class="text-link" href="#subdl">Vezi pașii pentru SubDL.</a></p>
+          </div>
         </details>
         <details>
           <summary>Această pagină îmi cere cheile API?</summary>
-          <p>Nu. Website-ul nu conține un formular pentru chei. Introdu-le numai în pagina de configurare a addonului și păstrează privat linkul personal de instalare pe care îl generează.</p>
+          <div class="faq-body">
+            <p>Nu. Website-ul nu conține un formular pentru chei. Introdu-le numai în pagina de configurare a addonului și păstrează privat linkul personal de instalare pe care îl generează.</p>
+          </div>
         </details>
         <details>
           <summary>Pot instala addonul direct de aici?</summary>
-          <p>Butonul „Configurează și instalează” deschide interfața reală a addonului. Acolo îți validezi cheile și finalizezi instalarea în Stremio.</p>
+          <div class="faq-body">
+            <p>Butonul „Configurează și instalează” deschide interfața reală a addonului. Acolo îți validezi cheile și finalizezi instalarea în Stremio.</p>
+          </div>
         </details>
       </div>
     </section>
