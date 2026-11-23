@@ -795,6 +795,38 @@
       max-width: 78ch;
     }
 
+
+    /* Al doilea element Noutati: Backblaze B2; pastram integral cardul existent. */
+    .changelog-wrap { display: grid; gap: 12px; }
+    .changelog-bar.backblaze-news {
+      border-color: rgba(125, 211, 252, 0.30);
+      border-top-color: rgba(186, 230, 253, 0.54);
+    }
+    .backblaze-news .changelog-icon {
+      color: #bae6fd;
+      background: linear-gradient(145deg, rgba(56, 189, 248, 0.28), rgba(29, 78, 216, 0.38));
+      border-color: rgba(125, 211, 252, 0.46);
+    }
+    .backblaze-news .changelog-tag {
+      color: #bae6fd;
+      background: rgba(56, 189, 248, 0.15);
+      border-color: rgba(125, 211, 252, 0.38);
+    }
+    .backblaze-news .changelog-benefits {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 9px;
+    }
+    .backblaze-news .changelog-benefits span {
+      font: 600 0.69rem var(--mono);
+      color: #c4e6fc;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.11);
+      border: 1px solid rgba(125, 211, 252, 0.26);
+    }
+
     /* Sectiuni comune */
     .section { padding-block: clamp(64px, 7.5vw, 102px); }
     .section-heading {
@@ -1423,7 +1455,7 @@
         height: auto;
         background: linear-gradient(180deg, rgba(96, 165, 250, 0.65), rgba(56, 189, 248, 0.65), rgba(52, 211, 153, 0.58));
       }
-      .step { padding: 20px 18px; overflow: visible; }
+      .step { padding: 20px 18px; }
       .step .number {
         position: absolute;
         left: -52px;
@@ -1583,7 +1615,7 @@
           <a class="btn btn-primary" href="https://ro-sub-translator-addon.onrender.com/" target="_blank" rel="noopener noreferrer">Configurează și instalează <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
           <a class="btn btn-quiet" href="#instalare">Vezi pașii de instalare</a>
         </div>
-        <div class="hero-note">Configurarea și instalarea rămân pe serverul actual.</div>
+        <div class="hero-note"><strong>Fără schimbarea addonului existent.</strong> Configurarea și instalarea rămân pe serverul actual.</div>
       </div>
 
       <div class="preview-wrap">
@@ -1641,6 +1673,22 @@
             <strong>Filtrare mai bună a sunetelor și etichetelor</strong>
           </div>
           <p>Detectarea mai multor tipuri de greșeli. Addonul filtrează mai bine indicațiile precum [râsete], [oftat] și [muzică], astfel încât dialogul să fie mai ușor de urmărit.</p>
+        </div>
+      </aside>
+      <aside class="glass-surface changelog-bar backblaze-news" aria-label="Arhivă și cache inteligent Backblaze B2">
+        <span class="changelog-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg>
+        </span>
+        <div class="changelog-body">
+          <div class="changelog-top">
+            <span class="changelog-tag">Noutăți</span>
+            <strong>Arhivă și cache inteligent</strong>
+          </div>
+          <p>Subtitrările traduse sunt salvate în Backblaze B2 și rămân disponibile chiar și după repornirea serverului. Traducerile existente pot fi reutilizate automat, economisind timp și cereri Gemini.</p>
+          <div class="changelog-benefits" aria-label="Avantaje">
+            <span>Stocare persistentă</span>
+            <span>Reutilizare automată</span>
+          </div>
         </div>
       </aside>
     </div>
