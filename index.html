@@ -418,7 +418,7 @@ const scenes=[{"title":"Science-fiction","src":"fundal-01.webp"},{"title":"Miste
 const hero=document.querySelector('.hero'),layers=[...hero.querySelectorAll('.cinematic-scene')];
 const motion=matchMedia('(prefers-reduced-motion: reduce)');let timer=null,busy=false,current=-1,front=0,deck=[];
 function shuffle(){deck=scenes.map((_,i)=>i);for(let i=deck.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[deck[i],deck[j]]=[deck[j],deck[i]];}if(deck[0]===current&&deck.length>1)[deck[0],deck[1]]=[deck[1],deck[0]];}
-function schedule(){clearTimeout(timer);if(!busy&&!motion.matches&&!document.hidden)timer=setTimeout(advance,15000);}
+function schedule(){clearTimeout(timer);if(!busy&&!document.hidden)timer=setTimeout(advance,15000);}
 async function advance(){if(busy)return;busy=true;clearTimeout(timer);try{
  if(!deck.length)shuffle();const n=deck.shift(),first=current<0,target=first?front:1-front,incoming=layers[target],outgoing=layers[front];
  incoming.classList.remove('shown','front');incoming.src=scenes[n].src;await incoming.decode();
